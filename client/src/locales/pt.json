@@ -9,7 +9,10 @@
     "calculator": "Calculadora",
     "downloads": "Downloads",
     "careers": "Trabalhe Conosco",
-    "contact": "Contato"
+    "contact": "Contato",
+    "menu": "Menu",
+    "close_menu": "Fechar menu",
+    "settings": "Configurações"
   },
   "hero": {
     "since": "Desde 1944",

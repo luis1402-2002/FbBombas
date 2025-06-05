@@ -85,18 +85,17 @@ const Header = () => {
       } transition-all duration-300`}
       itemScope itemType="http://schema.org/Organization"
     >
-      {/* Barra superior com informações de contato e seletores */}
-      <div className="hidden sm:block bg-slate-50 dark:bg-slate-900 border-b border-slate-200/70 dark:border-slate-800/70 py-1.5">
+      {/* Barra superior com informações de contato e seletores - apenas desktop */}
+      <div className="hidden md:block bg-slate-50 dark:bg-slate-900 border-b border-slate-200/70 dark:border-slate-800/70 py-1.5">
         <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 flex justify-between items-center">
-          <div className="flex items-center gap-3 sm:gap-4 text-xs text-slate-600 dark:text-slate-400">
+          <div className="flex items-center gap-4 text-xs text-slate-600 dark:text-slate-400">
             <a 
               href="mailto:comercial@fbbombas.com.br" 
               className="flex items-center hover:text-[#E30613] transition-colors whitespace-nowrap"
               itemProp="email"
             >
               <Mail className="h-3.5 w-3.5 mr-1.5 flex-shrink-0" />
-              <span className="hidden sm:inline">comercial@fbbombas.com.br</span>
-              <span className="sm:hidden">Email</span>
+              <span>comercial@fbbombas.com.br</span>
             </a>
             <a 
               href="tel:+5511999876316" 
@@ -104,8 +103,7 @@ const Header = () => {
               itemProp="telephone"
             >
               <Phone className="h-3.5 w-3.5 mr-1.5 flex-shrink-0" />
-              <span className="hidden sm:inline">(11) 99987-6316</span>
-              <span className="sm:hidden">Telefone</span>
+              <span>(11) 99987-6316</span>
             </a>
           </div>
           <div className="flex items-center gap-3">
@@ -148,29 +146,15 @@ const Header = () => {
             <meta itemProp="name" content="FB Bombas" />
           </a>
 
-          {/* Mobile menu controls - Otimizados */}
-          <div className="flex items-center gap-2 md:hidden">
-            <LanguageSelector />
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="text-primary dark:text-primary-foreground"
-              aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}
-            >
-              {theme === "dark" ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
+          {/* Mobile menu - Apenas logo e hamburguer */}
+          <div className="flex items-center md:hidden">
             <Button
               variant="ghost" 
               size="icon"
               onClick={toggleMobileMenu}
-              aria-label="Menu principal"
+              aria-label={t('nav.menu')}
               aria-expanded={mobileMenuOpen}
-              className="md:hidden text-primary dark:text-primary-foreground"
+              className="text-primary dark:text-primary-foreground"
             >
               {mobileMenuOpen ? (
                 <X className="h-5 w-5" />
@@ -309,10 +293,10 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile menu - Otimizado mantendo funcionalidade original */}
+      {/* Mobile menu - UX melhorada com z-index superior ao WhatsApp */}
       <div
         className={cn(
-          "md:hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm transition-opacity",
+          "md:hidden fixed inset-0 z-[9999] bg-black/70 backdrop-blur-sm transition-opacity",
           mobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         )}
         aria-hidden={!mobileMenuOpen}
@@ -326,7 +310,7 @@ const Header = () => {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex flex-col h-full overflow-y-auto">
-            {/* Header otimizado */}
+            {/* Header melhorado */}
             <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900">
               <div className="h-8 w-auto">
                 <img 
@@ -339,14 +323,14 @@ const Header = () => {
                 variant="ghost"
                 size="icon"
                 onClick={() => setMobileMenuOpen(false)}
-                aria-label="Fechar menu"
-                className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                aria-label={t('nav.close_menu')}
+                className="text-slate-500 dark:text-white hover:text-slate-900 dark:hover:text-slate-300"
               >
                 <X className="h-5 w-5" />
               </Button>
             </div>
             
-            {/* Navegação melhorada */}
+            {/* Navegação com ícones brancos no dark theme */}
             <nav className="flex-1 p-4">
               <div className="space-y-2">
                 <a 
@@ -358,7 +342,7 @@ const Header = () => {
                   }}
                   className="flex items-center py-3 px-3 text-base font-medium rounded-lg border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 >
-                  <Home className="w-5 h-5 mr-3 text-[#E30613]" />
+                  <Home className="w-5 h-5 mr-3 text-[#E30613] dark:text-white" />
                   <span>{t('nav.home')}</span>
                 </a>
                 
@@ -371,8 +355,8 @@ const Header = () => {
                   }}
                   className="flex items-center py-3 px-3 text-base font-medium rounded-lg border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 >
-                  <Building2 className="w-5 h-5 mr-3 text-[#E30613]" />
-                  <span>{t('nav.history', 'Nossa História')}</span>
+                  <Building2 className="w-5 h-5 mr-3 text-[#E30613] dark:text-white" />
+                  <span>{t('nav.history')}</span>
                 </a>
                 
                 {/* Produtos com submenu otimizado */}
@@ -390,7 +374,7 @@ const Header = () => {
                       />
                       <span>{t('nav.products')}</span>
                     </div>
-                    <ChevronDown className={`h-5 w-5 transition-transform ${productSubMenuOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`h-5 w-5 text-slate-600 dark:text-white transition-transform ${productSubMenuOpen ? 'rotate-180' : ''}`} />
                   </button>
                   
                   <div className={cn(
@@ -399,32 +383,32 @@ const Header = () => {
                   )}>
                     <a 
                       href="/produtos"
-                      className="block py-2.5 text-slate-700 dark:text-slate-300 hover:text-[#E30613] transition-colors"
+                      className="block py-2.5 text-slate-700 dark:text-slate-300 hover:text-[#E30613] dark:hover:text-white transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <span className="flex items-center font-medium">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#E30613] mr-3"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#E30613] dark:bg-white mr-3"></span>
                         {t('products.all_models', 'Todos os Modelos')}
                       </span>
                     </a>
-                    <div className="my-1.5 border-t border-slate-200 dark:border-slate-800"></div>
+                    <div className="my-1.5 border-t border-slate-200 dark:border-slate-700"></div>
                     <a 
                       href="/produtos/bombas-engrenagem" 
-                      className="block py-2.5 text-slate-700 dark:text-slate-300 hover:text-[#E30613] transition-colors"
+                      className="block py-2.5 text-slate-700 dark:text-slate-300 hover:text-[#E30613] dark:hover:text-white transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <span className="flex items-center">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#003087] mr-3"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#003087] dark:bg-white mr-3"></span>
                         {t('products.gear_pumps', 'Bombas de Engrenagem')}
                       </span>
                     </a>
                     <a 
                       href="/produtos/bombas-centrifugas" 
-                      className="block py-2.5 text-slate-700 dark:text-slate-300 hover:text-[#E30613] transition-colors"
+                      className="block py-2.5 text-slate-700 dark:text-slate-300 hover:text-[#E30613] dark:hover:text-white transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <span className="flex items-center">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#003087] mr-3"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#003087] dark:bg-white mr-3"></span>
                         {t('products.centrifugal_pumps', 'Bombas Centrífugas')}
                       </span>
                     </a>
@@ -440,7 +424,7 @@ const Header = () => {
                   }}
                   className="flex items-center py-3 px-3 text-base font-medium rounded-lg border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 >
-                  <BookOpen className="w-5 h-5 mr-3 text-[#E30613]" />
+                  <BookOpen className="w-5 h-5 mr-3 text-[#E30613] dark:text-white" />
                   <span>{t('nav.downloads')}</span>
                 </a>
                 
@@ -464,12 +448,12 @@ const Header = () => {
                   }}
                   className="flex items-center py-3 px-3 text-base font-medium rounded-lg border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 >
-                  <Briefcase className="w-5 h-5 mr-3 text-[#E30613]" />
-                  <span>{t('nav.careers', 'Trabalhe Conosco')}</span>
+                  <Briefcase className="w-5 h-5 mr-3 text-[#E30613] dark:text-white" />
+                  <span>{t('nav.careers')}</span>
                 </a>
               </div>
 
-              {/* Botão de contato destacado no mobile */}
+              {/* Botão de contato destacado */}
               <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800">
                 <Button
                   onClick={(e) => {
@@ -484,23 +468,48 @@ const Header = () => {
                 </Button>
               </div>
 
-              {/* Informações de contato no rodapé mobile */}
+              {/* Informações de contato */}
               <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800">
                 <div className="space-y-3 text-sm">
                   <a 
                     href="mailto:comercial@fbbombas.com.br" 
-                    className="flex items-center text-slate-600 dark:text-slate-400 hover:text-[#E30613] transition-colors"
+                    className="flex items-center text-slate-600 dark:text-slate-400 hover:text-[#E30613] dark:hover:text-white transition-colors"
                   >
                     <Mail className="h-4 w-4 mr-2" />
                     comercial@fbbombas.com.br
                   </a>
                   <a 
                     href="tel:+5511999876316" 
-                    className="flex items-center text-slate-600 dark:text-slate-400 hover:text-[#E30613] transition-colors"
+                    className="flex items-center text-slate-600 dark:text-slate-400 hover:text-[#E30613] dark:hover:text-white transition-colors"
                   >
                     <Phone className="h-4 w-4 mr-2" />
                     (11) 99987-6316
                   </a>
+                </div>
+              </div>
+
+              {/* Controles de configurações */}
+              <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    {t('nav.settings')}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <LanguageSelector />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={toggleTheme}
+                    className="h-8 w-8 p-0 text-slate-500 dark:text-white hover:text-slate-900 dark:hover:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800"
+                    aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}
+                  >
+                    {theme === "dark" ? (
+                      <Sun className="h-4 w-4" />
+                    ) : (
+                      <Moon className="h-4 w-4" />
+                    )}
+                  </Button>
                 </div>
               </div>
             </nav>
