@@ -285,7 +285,7 @@ const Header = () => {
               e.preventDefault();
               window.location.href = '/#contato';
             }}
-            className="ml-2 lg:ml-3 bg-[#E30613] hover:bg-[#c60411] text-white rounded-md px-4 py-2 font-medium transition-colors duration-200 flex items-center"
+            className="hidden md:flex ml-2 lg:ml-3 bg-[#E30613] hover:bg-[#c60411] text-white rounded-md px-4 py-2 font-medium transition-colors duration-200 items-center"
           >
             <Phone className="w-4 h-4 mr-2" />
             <span>{t('nav.contact')}</span>
@@ -333,31 +333,41 @@ const Header = () => {
             {/* Navegação com ícones brancos no dark theme */}
             <nav className="flex-1 p-4">
               <div className="space-y-2">
-                <a 
-                  href="/#inicio" 
-                  onClick={(e) => {
-                    e.preventDefault();
+                <button 
+                  onClick={() => {
                     setMobileMenuOpen(false);
-                    window.location.href = '/#inicio';
+                    if (window.location.pathname === '/') {
+                      const element = document.getElementById('inicio');
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    } else {
+                      window.location.href = '/#inicio';
+                    }
                   }}
-                  className="flex items-center py-3 px-3 text-base font-medium rounded-lg border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  className="flex items-center py-3 px-3 text-base font-medium rounded-lg border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors w-full text-left"
                 >
                   <Home className="w-5 h-5 mr-3 text-[#E30613] dark:text-white" />
                   <span>{t('nav.home')}</span>
-                </a>
+                </button>
                 
-                <a 
-                  href="/#empresa" 
-                  onClick={(e) => {
-                    e.preventDefault();
+                <button 
+                  onClick={() => {
                     setMobileMenuOpen(false);
-                    window.location.href = '/#empresa';
+                    if (window.location.pathname === '/') {
+                      const element = document.getElementById('empresa');
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    } else {
+                      window.location.href = '/#empresa';
+                    }
                   }}
-                  className="flex items-center py-3 px-3 text-base font-medium rounded-lg border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  className="flex items-center py-3 px-3 text-base font-medium rounded-lg border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors w-full text-left"
                 >
                   <Building2 className="w-5 h-5 mr-3 text-[#E30613] dark:text-white" />
                   <span>{t('nav.history')}</span>
-                </a>
+                </button>
                 
                 {/* Produtos com submenu otimizado */}
                 <div className="border-b border-slate-200 dark:border-slate-800 pb-2">
@@ -415,27 +425,32 @@ const Header = () => {
                   </div>
                 </div>
 
-                <a 
-                  href="/#downloads" 
-                  onClick={(e) => {
-                    e.preventDefault();
+                <button 
+                  onClick={() => {
                     setMobileMenuOpen(false);
-                    window.location.href = '/#downloads';
+                    if (window.location.pathname === '/') {
+                      const element = document.getElementById('downloads');
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    } else {
+                      window.location.href = '/#downloads';
+                    }
                   }}
-                  className="flex items-center py-3 px-3 text-base font-medium rounded-lg border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  className="flex items-center py-3 px-3 text-base font-medium rounded-lg border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors w-full text-left"
                 >
                   <BookOpen className="w-5 h-5 mr-3 text-[#E30613] dark:text-white" />
                   <span>{t('nav.downloads')}</span>
-                </a>
+                </button>
                 
-                <a 
-                  href="/" 
-                  onClick={(e) => {
-                    e.preventDefault();
+                <button 
+                  onClick={() => {
                     setMobileMenuOpen(false);
-                    const section = document.querySelector('section.work-with-us-section');
-                    if (section) {
-                      section.scrollIntoView({ behavior: 'smooth' });
+                    if (window.location.pathname === '/') {
+                      const section = document.querySelector('section.work-with-us-section');
+                      if (section) {
+                        section.scrollIntoView({ behavior: 'smooth' });
+                      }
                     } else {
                       window.location.href = '/';
                       setTimeout(() => {
@@ -446,20 +461,26 @@ const Header = () => {
                       }, 500);
                     }
                   }}
-                  className="flex items-center py-3 px-3 text-base font-medium rounded-lg border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  className="flex items-center py-3 px-3 text-base font-medium rounded-lg border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors w-full text-left"
                 >
                   <Briefcase className="w-5 h-5 mr-3 text-[#E30613] dark:text-white" />
                   <span>{t('nav.careers')}</span>
-                </a>
+                </button>
               </div>
 
               {/* Botão de contato destacado */}
               <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800">
                 <Button
-                  onClick={(e) => {
-                    e.preventDefault();
+                  onClick={() => {
                     setMobileMenuOpen(false);
-                    window.location.href = '/#contato';
+                    if (window.location.pathname === '/') {
+                      const element = document.getElementById('contato');
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    } else {
+                      window.location.href = '/#contato';
+                    }
                   }}
                   className="w-full bg-[#E30613] hover:bg-[#c60411] text-white py-3 px-4 rounded-lg font-medium shadow-lg"
                 >
