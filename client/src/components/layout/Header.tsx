@@ -85,17 +85,18 @@ const Header = () => {
       } transition-all duration-300`}
       itemScope itemType="http://schema.org/Organization"
     >
-      {/* Barra superior com informações de contato e seletores - apenas desktop */}
-      <div className="hidden lg:block bg-slate-50 dark:bg-slate-900 border-b border-slate-200/70 dark:border-slate-800/70 py-1.5">
+      {/* Barra superior com informações de contato e seletores */}
+      <div className="hidden sm:block bg-slate-50 dark:bg-slate-900 border-b border-slate-200/70 dark:border-slate-800/70 py-1.5">
         <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 flex justify-between items-center">
-          <div className="flex items-center gap-4 text-xs text-slate-600 dark:text-slate-400">
+          <div className="flex items-center gap-3 sm:gap-4 text-xs text-slate-600 dark:text-slate-400">
             <a 
               href="mailto:comercial@fbbombas.com.br" 
               className="flex items-center hover:text-[#E30613] transition-colors whitespace-nowrap"
               itemProp="email"
             >
               <Mail className="h-3.5 w-3.5 mr-1.5 flex-shrink-0" />
-              <span>comercial@fbbombas.com.br</span>
+              <span className="hidden sm:inline">comercial@fbbombas.com.br</span>
+              <span className="sm:hidden">Email</span>
             </a>
             <a 
               href="tel:+5511999876316" 
@@ -103,7 +104,8 @@ const Header = () => {
               itemProp="telephone"
             >
               <Phone className="h-3.5 w-3.5 mr-1.5 flex-shrink-0" />
-              <span>(11) 99987-6316</span>
+              <span className="hidden sm:inline">(11) 99987-6316</span>
+              <span className="sm:hidden">Telefone</span>
             </a>
           </div>
           <div className="flex items-center gap-3">
@@ -124,17 +126,16 @@ const Header = () => {
       </div>
 
       {/* Menu principal */}
-      <div className="w-full max-w-[1400px] mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14 sm:h-16 md:h-20">
-          
-          {/* Logo - Otimizado para mobile */}
+      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          {/* Logo */}
           <a 
             href="#inicio" 
-            className="flex items-center outline-none focus-visible:ring-2 focus-visible:ring-[#E30613] rounded-md flex-shrink-0"
+            className="flex items-center outline-none focus-visible:ring-2 focus-visible:ring-[#E30613] rounded-md"
             aria-label="FB Bombas - Página inicial"
             itemProp="url"
           >
-            <div className="w-auto h-7 sm:h-8 md:h-10 lg:h-14 transition-transform hover:scale-105 duration-300">
+            <div className="w-auto h-8 sm:h-10 md:h-14 transition-transform hover:scale-105 duration-300">
               <img 
                 src={actualTheme === 'dark' ? logoWhite : logoLight} 
                 alt="FB Bombas Logo" 
@@ -147,50 +148,29 @@ const Header = () => {
             <meta itemProp="name" content="FB Bombas" />
           </a>
 
-          {/* Mobile controls - Redesenhado para melhor UX */}
-          <div className="flex items-center gap-1 sm:gap-2 lg:hidden">
-            {/* Seletor de idioma compacto para mobile */}
-            <div className="flex items-center">
-              <LanguageSelector />
-            </div>
-            
-            {/* Toggle tema compacto */}
+          {/* Mobile menu controls - Otimizados */}
+          <div className="flex items-center gap-2 md:hidden">
+            <LanguageSelector />
             <Button
               variant="ghost"
-              size="sm"
+              size="icon"
               onClick={toggleTheme}
-              className="h-9 w-9 p-0 text-primary dark:text-primary-foreground hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="text-primary dark:text-primary-foreground"
               aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}
             >
               {theme === "dark" ? (
-                <Sun className="h-4 w-4" />
+                <Sun className="h-5 w-5" />
               ) : (
-                <Moon className="h-4 w-4" />
+                <Moon className="h-5 w-5" />
               )}
             </Button>
-            
-            {/* Botão de contato mobile */}
             <Button
-              variant="default"
-              size="sm"
-              onClick={(e) => {
-                e.preventDefault();
-                window.location.href = '/#contato';
-              }}
-              className="h-9 bg-[#E30613] hover:bg-[#c60411] text-white px-3 text-xs font-medium hidden sm:flex"
-            >
-              <Phone className="w-3 h-3 mr-1" />
-              <span>Contato</span>
-            </Button>
-            
-            {/* Menu hamburguer */}
-            <Button
-              variant="ghost"
-              size="sm"
+              variant="ghost" 
+              size="icon"
               onClick={toggleMobileMenu}
               aria-label="Menu principal"
               aria-expanded={mobileMenuOpen}
-              className="h-9 w-9 p-0 text-primary dark:text-primary-foreground hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="md:hidden text-primary dark:text-primary-foreground"
             >
               {mobileMenuOpen ? (
                 <X className="h-5 w-5" />
@@ -329,58 +309,46 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile menu - Redesenhado completamente */}
+      {/* Mobile menu - Otimizado mantendo funcionalidade original */}
       <div
         className={cn(
-          "lg:hidden fixed inset-0 z-[60] transition-all duration-300 ease-in-out",
-          mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+          "md:hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm transition-opacity",
+          mobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         )}
         aria-hidden={!mobileMenuOpen}
+        onClick={() => setMobileMenuOpen(false)}
       >
-        {/* Backdrop */}
-        <div 
-          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-          onClick={() => setMobileMenuOpen(false)}
-        />
-        
-        {/* Menu Panel */}
         <div 
           className={cn(
-            "fixed top-0 right-0 h-full w-full max-w-sm bg-white dark:bg-slate-950 shadow-2xl transition-transform duration-300 ease-out",
+            "fixed top-0 right-0 h-full w-3/4 max-w-sm bg-white dark:bg-slate-950 shadow-xl transition-transform duration-300 ease-in-out",
             mobileMenuOpen ? "translate-x-0" : "translate-x-full"
           )}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex flex-col h-full">
-            
-            {/* Header do menu mobile */}
-            <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
-              <div className="flex items-center">
-                <div className="h-8 w-auto mr-3">
-                  <img 
-                    src={actualTheme === 'dark' ? logoWhite : logoLight} 
-                    alt="FB Bombas" 
-                    className="h-full w-auto object-contain"
-                  />
-                </div>
-                <span className="font-semibold text-azul-profundo dark:text-white">Menu</span>
+          <div className="flex flex-col h-full overflow-y-auto">
+            {/* Header otimizado */}
+            <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900">
+              <div className="h-8 w-auto">
+                <img 
+                  src={actualTheme === 'dark' ? logoWhite : logoLight} 
+                  alt="FB Bombas" 
+                  className="h-full w-auto object-contain"
+                />
               </div>
               <Button
                 variant="ghost"
-                size="sm"
+                size="icon"
                 onClick={() => setMobileMenuOpen(false)}
                 aria-label="Fechar menu"
-                className="h-8 w-8 p-0 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-800"
+                className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               >
-                <X className="h-4 w-4" />
+                <X className="h-5 w-5" />
               </Button>
             </div>
             
-            {/* Navegação principal */}
-            <nav className="flex-1 overflow-y-auto">
-              <div className="p-4 space-y-1">
-                
-                {/* Home */}
+            {/* Navegação melhorada */}
+            <nav className="flex-1 p-4">
+              <div className="space-y-2">
                 <a 
                   href="/#inicio" 
                   onClick={(e) => {
@@ -388,13 +356,12 @@ const Header = () => {
                     setMobileMenuOpen(false);
                     window.location.href = '/#inicio';
                   }}
-                  className="flex items-center w-full py-3 px-4 rounded-lg text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group"
+                  className="flex items-center py-3 px-3 text-base font-medium rounded-lg border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 >
-                  <Home className="w-5 h-5 mr-3 text-[#E30613] group-hover:scale-110 transition-transform" />
-                  <span className="font-medium">{t('nav.home')}</span>
+                  <Home className="w-5 h-5 mr-3 text-[#E30613]" />
+                  <span>{t('nav.home')}</span>
                 </a>
                 
-                {/* Empresa */}
                 <a 
                   href="/#empresa" 
                   onClick={(e) => {
@@ -402,16 +369,16 @@ const Header = () => {
                     setMobileMenuOpen(false);
                     window.location.href = '/#empresa';
                   }}
-                  className="flex items-center w-full py-3 px-4 rounded-lg text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group"
+                  className="flex items-center py-3 px-3 text-base font-medium rounded-lg border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 >
-                  <Building2 className="w-5 h-5 mr-3 text-[#E30613] group-hover:scale-110 transition-transform" />
-                  <span className="font-medium">{t('nav.history', 'Nossa História')}</span>
+                  <Building2 className="w-5 h-5 mr-3 text-[#E30613]" />
+                  <span>{t('nav.history', 'Nossa História')}</span>
                 </a>
                 
-                {/* Produtos com submenu */}
-                <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-2 border border-slate-200 dark:border-slate-800">
+                {/* Produtos com submenu otimizado */}
+                <div className="border-b border-slate-200 dark:border-slate-800 pb-2">
                   <button 
-                    className="flex justify-between items-center w-full py-3 px-2 text-slate-900 dark:text-white hover:bg-white dark:hover:bg-slate-800 rounded-md transition-colors"
+                    className="flex justify-between w-full items-center py-3 px-3 text-base font-medium text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
                     onClick={toggleProductSubMenu}
                     aria-expanded={productSubMenuOpen}
                   >
@@ -419,54 +386,51 @@ const Header = () => {
                       <img 
                         src="https://www.dropbox.com/scl/fi/cxo5b8r77mxmaixocg0id/Design-sem-nome-90.svg?rlkey=1ur8rr36s8y6xjch4cfuak6rk&st=i7fb4933&raw=1"
                         alt=""
-                        className="w-5 h-5 mr-3 dark:brightness-0 dark:invert"
+                        className="w-[20px] h-[20px] mr-3 dark:brightness-0 dark:invert"
                       />
-                      <span className="font-medium">{t('nav.products')}</span>
+                      <span>{t('nav.products')}</span>
                     </div>
-                    <ChevronDown className={cn(
-                      "h-4 w-4 text-slate-500 transition-transform duration-200",
-                      productSubMenuOpen ? 'rotate-180' : ''
-                    )} />
+                    <ChevronDown className={`h-5 w-5 transition-transform ${productSubMenuOpen ? 'rotate-180' : ''}`} />
                   </button>
                   
                   <div className={cn(
-                    "overflow-hidden transition-all duration-300 ease-in-out",
-                    productSubMenuOpen ? "max-h-60 opacity-100 mt-2" : "max-h-0 opacity-0"
+                    "mt-1 pl-8 space-y-1 overflow-hidden transition-all duration-200",
+                    productSubMenuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
                   )}>
-                    <div className="space-y-1 pl-2">
-                      <a 
-                        href="/produtos"
-                        className="flex items-center py-2.5 px-3 rounded-md text-sm text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 hover:text-[#E30613] transition-colors"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
+                    <a 
+                      href="/produtos"
+                      className="block py-2.5 text-slate-700 dark:text-slate-300 hover:text-[#E30613] transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <span className="flex items-center font-medium">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#E30613] mr-3"></span>
-                        <span className="font-medium">{t('products.all_models', 'Todos os Modelos')}</span>
-                      </a>
-                      
-                      <div className="my-2 border-t border-slate-200 dark:border-slate-700"></div>
-                      
-                      <a 
-                        href="/produtos/bombas-engrenagem" 
-                        className="flex items-center py-2.5 px-3 rounded-md text-sm text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 hover:text-[#E30613] transition-colors"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
+                        {t('products.all_models', 'Todos os Modelos')}
+                      </span>
+                    </a>
+                    <div className="my-1.5 border-t border-slate-200 dark:border-slate-800"></div>
+                    <a 
+                      href="/produtos/bombas-engrenagem" 
+                      className="block py-2.5 text-slate-700 dark:text-slate-300 hover:text-[#E30613] transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <span className="flex items-center">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#003087] mr-3"></span>
-                        <span>{t('products.gear_pumps', 'Bombas de Engrenagem')}</span>
-                      </a>
-                      
-                      <a 
-                        href="/produtos/bombas-centrifugas" 
-                        className="flex items-center py-2.5 px-3 rounded-md text-sm text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 hover:text-[#E30613] transition-colors"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
+                        {t('products.gear_pumps', 'Bombas de Engrenagem')}
+                      </span>
+                    </a>
+                    <a 
+                      href="/produtos/bombas-centrifugas" 
+                      className="block py-2.5 text-slate-700 dark:text-slate-300 hover:text-[#E30613] transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <span className="flex items-center">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#003087] mr-3"></span>
-                        <span>{t('products.centrifugal_pumps', 'Bombas Centrífugas')}</span>
-                      </a>
-                    </div>
+                        {t('products.centrifugal_pumps', 'Bombas Centrífugas')}
+                      </span>
+                    </a>
                   </div>
                 </div>
 
-                {/* Downloads */}
                 <a 
                   href="/#downloads" 
                   onClick={(e) => {
@@ -474,13 +438,12 @@ const Header = () => {
                     setMobileMenuOpen(false);
                     window.location.href = '/#downloads';
                   }}
-                  className="flex items-center w-full py-3 px-4 rounded-lg text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group"
+                  className="flex items-center py-3 px-3 text-base font-medium rounded-lg border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 >
-                  <BookOpen className="w-5 h-5 mr-3 text-[#E30613] group-hover:scale-110 transition-transform" />
-                  <span className="font-medium">{t('nav.downloads')}</span>
+                  <BookOpen className="w-5 h-5 mr-3 text-[#E30613]" />
+                  <span>{t('nav.downloads')}</span>
                 </a>
                 
-                {/* Trabalhe Conosco */}
                 <a 
                   href="/" 
                   onClick={(e) => {
@@ -499,77 +462,48 @@ const Header = () => {
                       }, 500);
                     }
                   }}
-                  className="flex items-center w-full py-3 px-4 rounded-lg text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group"
+                  className="flex items-center py-3 px-3 text-base font-medium rounded-lg border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 >
-                  <Briefcase className="w-5 h-5 mr-3 text-[#E30613] group-hover:scale-110 transition-transform" />
-                  <span className="font-medium">{t('nav.careers', 'Trabalhe Conosco')}</span>
+                  <Briefcase className="w-5 h-5 mr-3 text-[#E30613]" />
+                  <span>{t('nav.careers', 'Trabalhe Conosco')}</span>
                 </a>
               </div>
-            </nav>
-            
-            {/* Rodapé do menu mobile com botão de contato e informações */}
-            <div className="border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
-              
-              {/* Botão de contato principal */}
-              <div className="p-4">
+
+              {/* Botão de contato destacado no mobile */}
+              <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800">
                 <Button
                   onClick={(e) => {
                     e.preventDefault();
                     setMobileMenuOpen(false);
                     window.location.href = '/#contato';
                   }}
-                  className="w-full bg-[#E30613] hover:bg-[#c60411] text-white py-3 px-4 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="w-full bg-[#E30613] hover:bg-[#c60411] text-white py-3 px-4 rounded-lg font-medium shadow-lg"
                 >
-                  <Phone className="w-5 h-5 mr-3" />
+                  <Phone className="w-5 h-5 mr-2" />
                   <span>{t('nav.contact')}</span>
                 </Button>
               </div>
-              
-              {/* Informações de contato */}
-              <div className="px-4 pb-4">
-                <div className="space-y-3">
+
+              {/* Informações de contato no rodapé mobile */}
+              <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+                <div className="space-y-3 text-sm">
                   <a 
                     href="mailto:comercial@fbbombas.com.br" 
-                    className="flex items-center text-sm text-slate-600 dark:text-slate-400 hover:text-[#E30613] transition-colors"
+                    className="flex items-center text-slate-600 dark:text-slate-400 hover:text-[#E30613] transition-colors"
                   >
-                    <Mail className="h-4 w-4 mr-3 flex-shrink-0" />
-                    <span>comercial@fbbombas.com.br</span>
+                    <Mail className="h-4 w-4 mr-2" />
+                    comercial@fbbombas.com.br
                   </a>
                   <a 
                     href="tel:+5511999876316" 
-                    className="flex items-center text-sm text-slate-600 dark:text-slate-400 hover:text-[#E30613] transition-colors"
+                    className="flex items-center text-slate-600 dark:text-slate-400 hover:text-[#E30613] transition-colors"
                   >
-                    <Phone className="h-4 w-4 mr-3 flex-shrink-0" />
-                    <span>(11) 99987-6316</span>
+                    <Phone className="h-4 w-4 mr-2" />
+                    (11) 99987-6316
                   </a>
                 </div>
               </div>
-              
-              {/* Controles do tema e idioma no mobile */}
-              <div className="px-4 pb-6 pt-2 border-t border-slate-200 dark:border-slate-700 lg:hidden">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                    {t('settings', 'Configurações')}
-                  </span>
-                  <div className="flex items-center gap-3">
-                    <LanguageSelector />
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={toggleTheme}
-                      className="h-8 w-8 p-0 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-800"
-                      aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}
-                    >
-                      {theme === "dark" ? (
-                        <Sun className="h-4 w-4" />
-                      ) : (
-                        <Moon className="h-4 w-4" />
-                      )}
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </nav>
           </div>
         </div>
       </div>
