@@ -5,10 +5,11 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import HomePage from "@/pages/HomePage";
-import ProductsMain from "@/pages/ProductsMain";
-import GearPumpsPageNew from "@/pages/GearPumpsPageNew";
-import CentrifugalPumpsPage from "@/pages/CentrifugalPumpsPage";
-import ProductDetailPage from "@/pages/ProductDetailPage";
+import ProductsPageNew from "@/pages/ProductsPageNew";
+import GearPumpsPageComplete from "@/pages/GearPumpsPageComplete";
+import CentrifugalPumpsPageNew from "@/pages/CentrifugalPumpsPageNew";
+import GearPumpModelsPageNew from "@/pages/GearPumpModelsPageNew";
+import GearPumpDetailPage from "@/pages/GearPumpDetailPage";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { useEffect } from "react";
@@ -44,27 +45,36 @@ function Router() {
       {/* Home page */}
       <Route path="/" component={HomePage} />
       
-      {/* Páginas de produtos */}
+      {/* Nova estrutura de produtos completamente reconstruída */}
       <Route path="/produtos">
-        {() => <ProductsMain />}
+        {() => <ProductsPageNew />}
       </Route>
+      
+      {/* Bombas de Engrenagem (Série FBE) */}
       <Route path="/produtos/bombas-engrenagem">
-        {() => <GearPumpsPageNew />}
+        {() => <GearPumpsPageComplete />}
       </Route>
+      <Route path="/produtos/bombas-engrenagem/:diameter">
+        {(params) => <GearPumpModelsPageNew />}
+      </Route>
+      <Route path="/produtos/bombas-engrenagem/:diameter/:modelId/especificacoes">
+        {(params) => <GearPumpDetailPage />}
+      </Route>
+      <Route path="/produtos/bombas-engrenagem/:diameter/especificacoes">
+        {(params) => <GearPumpDetailPage />}
+      </Route>
+      
+      {/* Bombas Centrífugas (Séries FBCN e FBOT) */}
+      <Route path="/produtos/bombas-centrifugas">
+        {() => <CentrifugalPumpsPageNew />}
+      </Route>
+      
+      {/* Compatibilidade com rotas antigas */}
       <Route path="/bombas-de-engrenagem">
-        {() => <GearPumpsPageNew />}
+        {() => <GearPumpsPageComplete />}
       </Route>
       <Route path="/bombas-centrifugas">
-        {() => <CentrifugalPumpsPage />}
-      </Route>
-      <Route path="/bombas-de-engrenagem/:modelId">
-        {(params) => <ProductDetailPage />}
-      </Route>
-      <Route path="/bombas-centrifugas/:modelId">
-        {(params) => <ProductDetailPage />}
-      </Route>
-      <Route path="/produtos/:modelId">
-        {(params) => <ProductDetailPage />}
+        {() => <CentrifugalPumpsPageNew />}
       </Route>
       
       {/* Rotas para seções específicas - serão redirecionadas para a home com hash */}

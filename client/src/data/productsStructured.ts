@@ -46,22 +46,22 @@ export const centrifugalPumps: CentrifugalPump[] = [
     },
     series: 'FBCN',
     description: {
-      pt: 'Desenvolvida para trabalhar com líquidos limpos ou turvos em diversas aplicações industriais.',
-      en: 'Developed to work with clean or turbid liquids in various industrial applications.',
-      es: 'Desarrollada para trabajar con líquidos limpios o turbios en diversas aplicaciones industriales.'
+      pt: 'Desenvolvida para trabalhar com líquidos limpos ou turvos em inúmeras aplicações industriais.',
+      en: 'Developed to work with clean or turbid liquids in numerous industrial applications.',
+      es: 'Desarrollada para trabajar con líquidos limpios o turbios en numerosas aplicaciones industriales.'
     },
     maxFlow: '2.200 m³/h',
     maxHead: '135 m',
-    maxTemp: '260°C',
+    maxTemp: '250°C',
     applications: {
-      pt: ['Indústrias químicas', 'Petroquímicas', 'Papel e polpa', 'Siderúrgica', 'Mineração', 'Alimentícia'],
-      en: ['Chemical industries', 'Petrochemical', 'Paper and pulp', 'Steel', 'Mining', 'Food'],
-      es: ['Industrias químicas', 'Petroquímicas', 'Papel y pulpa', 'Siderúrgica', 'Minería', 'Alimentaria']
+      pt: ['Indústrias químicas', 'Petroquímicas', 'Papel e polpa', 'Siderúrgica', 'Mineração', 'Alimentícia', 'Têxtil', 'Farmacêutica', 'Saneamento', 'Combate à incêndio'],
+      en: ['Chemical industries', 'Petrochemical', 'Paper and pulp', 'Steel', 'Mining', 'Food', 'Textile', 'Pharmaceutical', 'Sanitation', 'Fire fighting'],
+      es: ['Industrias químicas', 'Petroquímicas', 'Papel y pulpa', 'Siderúrgica', 'Minería', 'Alimentaria', 'Textil', 'Farmacéutica', 'Saneamiento', 'Combate a incendios']
     },
     features: {
-      pt: ['Construção back-pull-out', 'Conforme ISO 2858', 'Conforme ASME B73.1'],
-      en: ['Back-pull-out construction', 'ISO 2858 compliant', 'ASME B73.1 compliant'],
-      es: ['Construcción back-pull-out', 'Conforme ISO 2858', 'Conforme ASME B73.1']
+      pt: ['Tamanhos DN25 até 300 mm', 'Bomba com corpo em voluta', 'Instalação na horizontal', 'Construção back-pull-out', 'Monoestágio', 'Rotação máxima 3500 RPM'],
+      en: ['Sizes DN25 to 300 mm', 'Volute casing pump', 'Horizontal installation', 'Back-pull-out construction', 'Single stage', 'Maximum rotation 3500 RPM'],
+      es: ['Tamaños DN25 hasta 300 mm', 'Bomba con cuerpo en voluta', 'Instalación horizontal', 'Construcción back-pull-out', 'Monoetapa', 'Rotación máxima 3500 RPM']
     },
     image: 'https://www.dropbox.com/scl/fi/ex30iww4awnk2r63hannu/Design-sem-nome-72.png?rlkey=anxgdrw333kigr2ntnxztsimn&st=cx6tyvpk&raw=1',
     code: 'MTEC-03/00'
@@ -75,9 +75,9 @@ export const centrifugalPumps: CentrifugalPump[] = [
     },
     series: 'FBOT',
     description: {
-      pt: 'Especializada no bombeamento de óleos térmicos orgânicos para diversas indústrias.',
-      en: 'Specialized in pumping organic thermal oils for various industries.',
-      es: 'Especializada en el bombeo de aceites térmicos orgánicos para diversas industrias.'
+      pt: 'Desenvolvida para trabalhar no bombeamento de óleos térmicos orgânicos. O fluído não deve conter partículas abrasivas ou materiais que possam atacar quimicamente os componentes da bomba.',
+      en: 'Developed to work in pumping organic thermal oils. The fluid should not contain abrasive particles or materials that can chemically attack pump components.',
+      es: 'Desarrollada para trabajar en el bombeo de aceites térmicos orgánicos. El fluido no debe contener partículas abrasivas o materiales que puedan atacar químicamente los componentes de la bomba.'
     },
     maxFlow: '2.200 m³/h',
     maxHead: '135 m',
@@ -88,9 +88,9 @@ export const centrifugalPumps: CentrifugalPump[] = [
       es: ['Industria farmacéutica', 'Química', 'Alimentaria', 'Textil', 'Plástica']
     },
     features: {
-      pt: ['Construção back-pull-out', 'Dupla vedação', 'Selo mecânico imerso em óleo'],
-      en: ['Back-pull-out construction', 'Double sealing', 'Mechanical seal immersed in oil'],
-      es: ['Construcción back-pull-out', 'Doble sellado', 'Sello mecánico sumergido en aceite']
+      pt: ['Tamanhos DN25 até 300 mm', 'Bomba com corpo em voluta', 'Instalação na horizontal', 'Construção back-pull-out', 'Monoestágio', 'Rotação máxima 3500 RPM'],
+      en: ['Sizes DN25 to 300 mm', 'Volute casing pump', 'Horizontal installation', 'Back-pull-out construction', 'Single stage', 'Maximum rotation 3500 RPM'],
+      es: ['Tamaños DN25 hasta 300 mm', 'Bomba con cuerpo en voluta', 'Instalación horizontal', 'Construcción back-pull-out', 'Monoetapa', 'Rotación máxima 3500 RPM']
     },
     image: 'https://www.dropbox.com/scl/fi/t6moru7jiedkzru75ojcn/Design-sem-nome-71.png?rlkey=37vga7o60i112szivf7qm8v7n&st=eslq5fxc&raw=1',
     code: 'MTEC-16/00'
@@ -331,9 +331,9 @@ export const productCategories: ProductCategory[] = [
       es: 'Bombas de Engranajes'
     },
     description: {
-      pt: 'Soluções de alta precisão para transferência de fluidos viscosos',
-      en: 'High precision solutions for viscous fluid transfer',
-      es: 'Soluciones de alta precisión para transferencia de fluidos viscosos'
+      pt: 'Soluções de alta precisão para transferência de fluidos viscosos em diversas aplicações industriais',
+      en: 'High precision solutions for viscous fluid transfer in various industrial applications',
+      es: 'Soluciones de alta precisión para transferencia de fluidos viscosos en diversas aplicaciones industriales'
     },
     series: 'FBE',
     image: 'https://www.dropbox.com/scl/fi/sg6d1wpp1tq8l3xh849kl/Design-sem-nome-73.png?rlkey=ocyzqcox27bsyg5ajlfdnv71i&st=2nnd19h1&raw=1',
@@ -352,9 +352,9 @@ export const productCategories: ProductCategory[] = [
       es: 'Bombas Centrífugas'
     },
     description: {
-      pt: 'Tecnologia avançada para aplicações industriais de alta demanda',
-      en: 'Advanced technology for high-demand industrial applications',
-      es: 'Tecnología avanzada para aplicaciones industriales de alta demanda'
+      pt: 'Tecnologia avançada para aplicações industriais de alta demanda com máxima eficiência e confiabilidade',
+      en: 'Advanced technology for high-demand industrial applications with maximum efficiency and reliability',
+      es: 'Tecnología avanzada para aplicaciones industriales de alta demanda con máxima eficiencia y confiabilidad'
     },
     series: 'FBCN / FBOT',
     image: 'https://www.dropbox.com/scl/fi/ex30iww4awnk2r63hannu/Design-sem-nome-72.png?rlkey=anxgdrw333kigr2ntnxztsimn&st=cx6tyvpk&raw=1',
