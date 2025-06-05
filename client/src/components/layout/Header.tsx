@@ -293,256 +293,193 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile menu - Dropdown completo com largura total e 70% altura */}
-      <div
-        className={cn(
-          "md:hidden fixed top-0 left-0 w-full z-[9999] transition-all duration-300 ease-out",
-          mobileMenuOpen ? "translate-y-0" : "-translate-y-full"
-        )}
-        style={{ height: mobileMenuOpen ? '70vh' : '0' }}
-      >
-        <div className="w-full h-full bg-white dark:bg-slate-950 shadow-2xl border-b border-slate-200 dark:border-slate-800">
-          <div className="flex flex-col h-full">
-            {/* Header do menu */}
-            <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
-              <div className="flex items-center">
-                <div className="h-8 w-auto mr-3">
-                  <img 
-                    src={actualTheme === 'dark' ? logoWhite : logoLight} 
-                    alt="FB Bombas" 
-                    className="h-full w-auto object-contain"
-                  />
+      {/* Mobile menu - Menu simples e funcional */}
+      {mobileMenuOpen && (
+        <div className="md:hidden fixed inset-0 z-[9999] bg-black/60 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)}>
+          <div 
+            className="fixed top-0 left-0 w-full h-[70vh] bg-white dark:bg-slate-950 shadow-xl transform transition-transform duration-300 ease-out"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex flex-col h-full">
+              {/* Header */}
+              <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
+                <div className="flex items-center gap-3">
+                  <div className="h-8 w-auto">
+                    <img 
+                      src={actualTheme === 'dark' ? logoWhite : logoLight} 
+                      alt="FB Bombas" 
+                      className="h-full w-auto object-contain"
+                    />
+                  </div>
+                  <span className="font-semibold text-slate-900 dark:text-white">{t('nav.menu')}</span>
                 </div>
-                <span className="font-semibold text-slate-900 dark:text-white">{t('nav.menu')}</span>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-slate-500 dark:text-white hover:text-slate-900 dark:hover:text-slate-300"
+                >
+                  <X className="h-5 w-5" />
+                </Button>
               </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setMobileMenuOpen(false)}
-                aria-label={t('nav.close_menu')}
-                className="text-slate-500 dark:text-white hover:text-slate-900 dark:hover:text-slate-300"
-              >
-                <X className="h-5 w-5" />
-              </Button>
-            </div>
-            
-            {/* Navegação principal */}
-            <nav className="flex-1 overflow-y-auto p-4">
-              <div className="grid grid-cols-1 gap-2">
-                
-                {/* Home */}
-                <button 
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    if (window.location.pathname === '/') {
-                      const element = document.getElementById('inicio');
-                      if (element) {
-                        element.scrollIntoView({ behavior: 'smooth' });
-                      }
-                    } else {
-                      window.location.href = '/#inicio';
-                    }
-                  }}
-                  className="flex items-center py-4 px-4 text-base font-medium rounded-lg bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white transition-all duration-200 w-full text-left"
-                >
-                  <Home className="w-6 h-6 mr-4 text-[#E30613] dark:text-white" />
-                  <span>{t('nav.home')}</span>
-                </button>
-                
-                {/* Empresa */}
-                <button 
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    if (window.location.pathname === '/') {
-                      const element = document.getElementById('empresa');
-                      if (element) {
-                        element.scrollIntoView({ behavior: 'smooth' });
-                      }
-                    } else {
-                      window.location.href = '/#empresa';
-                    }
-                  }}
-                  className="flex items-center py-4 px-4 text-base font-medium rounded-lg bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white transition-all duration-200 w-full text-left"
-                >
-                  <Building2 className="w-6 h-6 mr-4 text-[#E30613] dark:text-white" />
-                  <span>{t('nav.history')}</span>
-                </button>
-                
-                {/* Produtos */}
-                <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-3 border border-slate-200 dark:border-slate-800">
+              
+              {/* Navigation */}
+              <nav className="flex-1 overflow-y-auto p-4">
+                <div className="space-y-3">
                   <button 
-                    className="flex justify-between items-center w-full py-2 px-2 text-base font-medium text-slate-900 dark:text-white hover:bg-white dark:hover:bg-slate-800 rounded-md transition-colors"
-                    onClick={toggleProductSubMenu}
-                    aria-expanded={productSubMenuOpen}
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      if (window.location.pathname === '/') {
+                        document.getElementById('inicio')?.scrollIntoView({ behavior: 'smooth' });
+                      } else {
+                        window.location.href = '/#inicio';
+                      }
+                    }}
+                    className="flex items-center w-full py-3 px-4 text-left text-base font-medium rounded-lg bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white transition-colors"
                   >
-                    <div className="flex items-center">
-                      <img 
-                        src="https://www.dropbox.com/scl/fi/cxo5b8r77mxmaixocg0id/Design-sem-nome-90.svg?rlkey=1ur8rr36s8y6xjch4cfuak6rk&st=i7fb4933&raw=1"
-                        alt=""
-                        className="w-6 h-6 mr-4 dark:brightness-0 dark:invert"
-                      />
-                      <span>{t('nav.products')}</span>
-                    </div>
-                    <ChevronDown className={cn(
-                      "h-5 w-5 text-slate-600 dark:text-white transition-transform duration-200",
-                      productSubMenuOpen ? 'rotate-180' : ''
-                    )} />
+                    <Home className="w-5 h-5 mr-3 text-[#E30613] dark:text-white" />
+                    {t('nav.home')}
                   </button>
                   
-                  <div className={cn(
-                    "overflow-hidden transition-all duration-300 ease-in-out",
-                    productSubMenuOpen ? "max-h-60 opacity-100 mt-3" : "max-h-0 opacity-0"
-                  )}>
-                    <div className="space-y-2 pl-4">
-                      <a 
-                        href="/produtos"
-                        className="flex items-center py-3 px-3 rounded-md text-sm text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 hover:text-[#E30613] dark:hover:text-white transition-colors"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        <span className="w-2 h-2 rounded-full bg-[#E30613] dark:bg-white mr-3"></span>
-                        <span className="font-medium">{t('products.all_models', 'Todos os Modelos')}</span>
-                      </a>
-                      
-                      <div className="my-2 border-t border-slate-200 dark:border-slate-700"></div>
-                      
-                      <a 
-                        href="/produtos/bombas-engrenagem" 
-                        className="flex items-center py-3 px-3 rounded-md text-sm text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 hover:text-[#E30613] dark:hover:text-white transition-colors"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        <span className="w-2 h-2 rounded-full bg-[#003087] dark:bg-white mr-3"></span>
-                        <span>{t('products.gear_pumps', 'Bombas de Engrenagem')}</span>
-                      </a>
-                      
-                      <a 
-                        href="/produtos/bombas-centrifugas" 
-                        className="flex items-center py-3 px-3 rounded-md text-sm text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 hover:text-[#E30613] dark:hover:text-white transition-colors"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        <span className="w-2 h-2 rounded-full bg-[#003087] dark:bg-white mr-3"></span>
-                        <span>{t('products.centrifugal_pumps', 'Bombas Centrífugas')}</span>
-                      </a>
-                    </div>
+                  <button 
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      if (window.location.pathname === '/') {
+                        document.getElementById('empresa')?.scrollIntoView({ behavior: 'smooth' });
+                      } else {
+                        window.location.href = '/#empresa';
+                      }
+                    }}
+                    className="flex items-center w-full py-3 px-4 text-left text-base font-medium rounded-lg bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white transition-colors"
+                  >
+                    <Building2 className="w-5 h-5 mr-3 text-[#E30613] dark:text-white" />
+                    {t('nav.history')}
+                  </button>
+                  
+                  {/* Products submenu */}
+                  <div className="bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
+                    <button 
+                      onClick={toggleProductSubMenu}
+                      className="flex items-center justify-between w-full py-3 px-4 text-left text-base font-medium text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                    >
+                      <div className="flex items-center">
+                        <img 
+                          src="https://www.dropbox.com/scl/fi/cxo5b8r77mxmaixocg0id/Design-sem-nome-90.svg?rlkey=1ur8rr36s8y6xjch4cfuak6rk&st=i7fb4933&raw=1"
+                          alt=""
+                          className="w-5 h-5 mr-3 dark:brightness-0 dark:invert"
+                        />
+                        {t('nav.products')}
+                      </div>
+                      <ChevronDown className={`h-4 w-4 text-slate-600 dark:text-white transition-transform ${productSubMenuOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    
+                    {productSubMenuOpen && (
+                      <div className="px-4 pb-3 space-y-1">
+                        <a 
+                          href="/produtos"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center py-2 px-3 text-sm text-slate-700 dark:text-slate-300 hover:text-[#E30613] dark:hover:text-white transition-colors"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#E30613] dark:bg-white mr-3"></span>
+                          {t('products.all_models', 'Todos os Modelos')}
+                        </a>
+                        <a 
+                          href="/produtos/bombas-engrenagem"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center py-2 px-3 text-sm text-slate-700 dark:text-slate-300 hover:text-[#E30613] dark:hover:text-white transition-colors"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#003087] dark:bg-white mr-3"></span>
+                          {t('products.gear_pumps', 'Bombas de Engrenagem')}
+                        </a>
+                        <a 
+                          href="/produtos/bombas-centrifugas"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center py-2 px-3 text-sm text-slate-700 dark:text-slate-300 hover:text-[#E30613] dark:hover:text-white transition-colors"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#003087] dark:bg-white mr-3"></span>
+                          {t('products.centrifugal_pumps', 'Bombas Centrífugas')}
+                        </a>
+                      </div>
+                    )}
                   </div>
+                  
+                  <button 
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      if (window.location.pathname === '/') {
+                        document.getElementById('downloads')?.scrollIntoView({ behavior: 'smooth' });
+                      } else {
+                        window.location.href = '/#downloads';
+                      }
+                    }}
+                    className="flex items-center w-full py-3 px-4 text-left text-base font-medium rounded-lg bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white transition-colors"
+                  >
+                    <BookOpen className="w-5 h-5 mr-3 text-[#E30613] dark:text-white" />
+                    {t('nav.downloads')}
+                  </button>
+                  
+                  <button 
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      if (window.location.pathname === '/') {
+                        document.querySelector('section.work-with-us-section')?.scrollIntoView({ behavior: 'smooth' });
+                      } else {
+                        window.location.href = '/';
+                      }
+                    }}
+                    className="flex items-center w-full py-3 px-4 text-left text-base font-medium rounded-lg bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white transition-colors"
+                  >
+                    <Briefcase className="w-5 h-5 mr-3 text-[#E30613] dark:text-white" />
+                    {t('nav.careers')}
+                  </button>
                 </div>
-
-                {/* Downloads */}
-                <button 
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    if (window.location.pathname === '/') {
-                      const element = document.getElementById('downloads');
-                      if (element) {
-                        element.scrollIntoView({ behavior: 'smooth' });
-                      }
-                    } else {
-                      window.location.href = '/#downloads';
-                    }
-                  }}
-                  className="flex items-center py-4 px-4 text-base font-medium rounded-lg bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white transition-all duration-200 w-full text-left"
-                >
-                  <BookOpen className="w-6 h-6 mr-4 text-[#E30613] dark:text-white" />
-                  <span>{t('nav.downloads')}</span>
-                </button>
-                
-                {/* Trabalhe Conosco */}
-                <button 
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    if (window.location.pathname === '/') {
-                      const section = document.querySelector('section.work-with-us-section');
-                      if (section) {
-                        section.scrollIntoView({ behavior: 'smooth' });
-                      }
-                    } else {
-                      window.location.href = '/';
-                      setTimeout(() => {
-                        const workSection = document.querySelector('section.work-with-us-section');
-                        if (workSection) {
-                          workSection.scrollIntoView({ behavior: 'smooth' });
-                        }
-                      }, 500);
-                    }
-                  }}
-                  className="flex items-center py-4 px-4 text-base font-medium rounded-lg bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white transition-all duration-200 w-full text-left"
-                >
-                  <Briefcase className="w-6 h-6 mr-4 text-[#E30613] dark:text-white" />
-                  <span>{t('nav.careers')}</span>
-                </button>
-              </div>
-            </nav>
-            
-            {/* Rodapé do menu com contato e configurações */}
-            <div className="border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-4">
+              </nav>
               
-              {/* Botão de contato principal */}
-              <div className="mb-4">
+              {/* Footer */}
+              <div className="border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-4">
                 <Button
                   onClick={() => {
                     setMobileMenuOpen(false);
                     if (window.location.pathname === '/') {
-                      const element = document.getElementById('contato');
-                      if (element) {
-                        element.scrollIntoView({ behavior: 'smooth' });
-                      }
+                      document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth' });
                     } else {
                       window.location.href = '/#contato';
                     }
                   }}
-                  className="w-full bg-[#E30613] hover:bg-[#c60411] text-white py-3 px-4 rounded-lg font-medium shadow-lg transition-all duration-300"
+                  className="w-full bg-[#E30613] hover:bg-[#c60411] text-white py-3 px-4 rounded-lg font-medium mb-4"
                 >
-                  <Phone className="w-5 h-5 mr-3" />
-                  <span>{t('nav.contact')}</span>
+                  <Phone className="w-4 h-4 mr-2" />
+                  {t('nav.contact')}
                 </Button>
-              </div>
-              
-              {/* Informações de contato e configurações */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <a 
-                    href="mailto:comercial@fbbombas.com.br" 
-                    className="flex items-center text-xs text-slate-600 dark:text-slate-400 hover:text-[#E30613] dark:hover:text-white transition-colors"
-                  >
-                    <Mail className="h-3 w-3 mr-2" />
-                    comercial@fbbombas.com.br
-                  </a>
-                  <a 
-                    href="tel:+5511999876316" 
-                    className="flex items-center text-xs text-slate-600 dark:text-slate-400 hover:text-[#E30613] dark:hover:text-white transition-colors"
-                  >
-                    <Phone className="h-3 w-3 mr-2" />
-                    (11) 99987-6316
-                  </a>
-                </div>
                 
-                <div className="flex items-center justify-end gap-3">
-                  <LanguageSelector />
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={toggleTheme}
-                    className="h-8 w-8 p-0 text-slate-500 dark:text-white hover:text-slate-900 dark:hover:text-slate-300"
-                    aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}
-                  >
-                    {theme === "dark" ? (
-                      <Sun className="h-4 w-4" />
-                    ) : (
-                      <Moon className="h-4 w-4" />
-                    )}
-                  </Button>
+                <div className="flex items-center justify-between text-xs">
+                  <div className="space-y-1">
+                    <a href="mailto:comercial@fbbombas.com.br" className="flex items-center text-slate-600 dark:text-slate-400 hover:text-[#E30613] dark:hover:text-white">
+                      <Mail className="h-3 w-3 mr-1" />
+                      comercial@fbbombas.com.br
+                    </a>
+                    <a href="tel:+5511999876316" className="flex items-center text-slate-600 dark:text-slate-400 hover:text-[#E30613] dark:hover:text-white">
+                      <Phone className="h-3 w-3 mr-1" />
+                      (11) 99987-6316
+                    </a>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <LanguageSelector />
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={toggleTheme}
+                      className="h-8 w-8 p-0 text-slate-500 dark:text-white"
+                    >
+                      {theme === "dark" ? <Sun className="h-3 w-3" /> : <Moon className="h-3 w-3" />}
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      
-      {/* Backdrop para o menu mobile */}
-      {mobileMenuOpen && (
-        <div 
-          className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998]"
-          onClick={() => setMobileMenuOpen(false)}
-        />
       )}
       
       {/* Progress bar - indicador de progresso de rolagem sofisticado */}
